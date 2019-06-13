@@ -16,7 +16,7 @@ test_meta=http://10.0.253.207:8080
 #uat_meta=http://fill-in-uat-meta-server:8080
 #pro_meta=http://localhost:8080
 
-spring_kafka_bootstrap=localhost:9092
+spring_kafka_bootstrap=10.0.253.123:9092
 
 META_SERVERS_OPTS="-Ddev_meta=$dev_meta -Dtest_meta=$test_meta "
 

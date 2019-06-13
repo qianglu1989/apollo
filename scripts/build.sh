@@ -1,22 +1,22 @@
 #!/bin/sh
 
 # apollo config db info
-apollo_config_db_url=jdbc:mysql://localhost:3306/ApolloConfigDB?characterEncoding=utf8
-apollo_config_db_username=root
-apollo_config_db_password=123456
+apollo_config_db_url=jdbc:mysql://10.0.253.122:3306/ApolloConfigDB?characterEncoding=utf8
+apollo_config_db_username=Apollo_test
+apollo_config_db_password=7SadtKH4AoVIq5UC7qUk
 
 # apollo portal db info
-apollo_portal_db_url=jdbc:mysql://localhost:3306/ApolloPortalDB?characterEncoding=utf8
-apollo_portal_db_username=root
-apollo_portal_db_password=123456
+apollo_portal_db_url=jdbc:mysql://10.0.253.122:3306/ApolloPortalDB?characterEncoding=utf8
+apollo_portal_db_username=Apollo_test
+apollo_portal_db_password=7SadtKH4AoVIq5UC7qUk
 
 # meta server url, different environments should have different meta server addresses
-dev_meta=http://localhost:8080
-test_meta=http://localhost:8080
+dev_meta=http://10.0.253.208:8080
+test_meta=http://10.0.253.207:8080
 #uat_meta=http://fill-in-uat-meta-server:8080
-pro_meta=http://localhost:8080
+#pro_meta=http://localhost:8080
 
-META_SERVERS_OPTS="-Ddev_meta=$dev_meta -Dtest_meta=$test_meta  -Dpro_meta=$pro_meta"
+META_SERVERS_OPTS="-Ddev_meta=$dev_meta -Dtest_meta=$test_meta "
 
 # =============== Please do not modify the following content =============== #
 # go to script directory

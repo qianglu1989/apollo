@@ -150,6 +150,11 @@ public abstract class ConfigPublishEmailBuilder {
             .replaceAll(EMAIL_CONTENT_FIELD_RELEASE_TIME, dateFormat.format(releaseHistory.getReleaseTime()));
   }
 
+  public ReleaseCompareResult getCompareResult(Env env, ReleaseHistoryBO releaseHistory){
+    ReleaseCompareResult result = getReleaseCompareResult(env, releaseHistory);
+    return result;
+  }
+
   private String renderDiffModule(String bodyTemplate, Env env, ReleaseHistoryBO releaseHistory) {
     String appId = releaseHistory.getAppId();
     String namespaceName = releaseHistory.getNamespaceName();

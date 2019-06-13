@@ -10,9 +10,12 @@ import com.ctrip.framework.apollo.portal.component.emailbuilder.NormalPublishEma
 import com.ctrip.framework.apollo.portal.component.emailbuilder.RollbackEmailBuilder;
 import com.ctrip.framework.apollo.portal.entity.bo.Email;
 import com.ctrip.framework.apollo.portal.entity.bo.ReleaseHistoryBO;
+import com.ctrip.framework.apollo.portal.entity.bo.SecooBo;
+import com.ctrip.framework.apollo.portal.entity.vo.ReleaseCompareResult;
 import com.ctrip.framework.apollo.portal.service.ReleaseHistoryService;
 import com.ctrip.framework.apollo.portal.spi.EmailService;
 import com.ctrip.framework.apollo.portal.spi.MQService;
+import com.ctrip.framework.apollo.portal.spi.SecooService;
 import com.ctrip.framework.apollo.tracer.Tracer;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -32,6 +35,7 @@ public class ConfigPublishListener {
   private final MergeEmailBuilder mergeEmailBuilder;
   private final PortalConfig portalConfig;
   private final MQService mqService;
+  private final SecooService secooService;
 
   private ExecutorService executorService;
 
@@ -43,7 +47,7 @@ public class ConfigPublishListener {
       final RollbackEmailBuilder rollbackEmailBuilder,
       final MergeEmailBuilder mergeEmailBuilder,
       final PortalConfig portalConfig,
-      final MQService mqService) {
+      final MQService mqService,final SecooService secooService) {
     this.releaseHistoryService = releaseHistoryService;
     this.emailService = emailService;
     this.normalPublishEmailBuilder = normalPublishEmailBuilder;
@@ -52,6 +56,7 @@ public class ConfigPublishListener {
     this.mergeEmailBuilder = mergeEmailBuilder;
     this.portalConfig = portalConfig;
     this.mqService = mqService;
+    this.secooService =secooService;
   }
 
   @PostConstruct
@@ -84,6 +89,17 @@ public class ConfigPublishListener {
       sendPublishEmail(releaseHistory);
 
       sendPublishMsg(releaseHistory);
+
+      sendSecooMsg(releaseHistory);
+    }
+
+    private void sendSecooMsg(ReleaseHistoryBO releaseHistory){
+
+      Env env = publishInfo.getEnv();
+      ReleaseCompareResult result = normalPublishEmailBuilder.getCompareResult(env, releaseHistory);
+
+      SecooBo bo = SecooBo.create().env(env.name()).releaseCompareResult(result).releaseHistoryBO(releaseHistory).build();
+      secooService.sendMsg(bo);
     }
 
     private ReleaseHistoryBO getReleaseHistory() {

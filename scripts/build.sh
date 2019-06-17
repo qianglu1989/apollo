@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # apollo config db info
-apollo_config_db_url=jdbc:mysql://10.0.253.122:3306/ApolloConfigDB?characterEncoding=utf8
+apollo_config_db_url=jdbc:mysql://10.185.240.86:3306/ApolloConfigDB?characterEncoding=utf8
 apollo_config_db_username=Apollo_test
 apollo_config_db_password=7SadtKH4AoVIq5UC7qUk
 
 # apollo portal db info
-apollo_portal_db_url=jdbc:mysql://10.0.253.122:3306/ApolloPortalDB?characterEncoding=utf8
+apollo_portal_db_url=jdbc:mysql://10.185.240.86:3306/ApolloPortalDB?characterEncoding=utf8
 apollo_portal_db_username=Apollo_test
 apollo_portal_db_password=7SadtKH4AoVIq5UC7qUk
 

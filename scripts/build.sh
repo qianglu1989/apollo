@@ -16,9 +16,9 @@ apollo_portal_db_password=2ey3Yeg2XXm8bCnqwm38
 #uat_meta=http://fill-in-uat-meta-server:8080
 pro_meta=http://192.168.251.32:8080,http://192.168.251.21:8080
 
-spring_kafka_bootstrap=10.0.253.123:9092
+spring_kafka_bootstrap=elk2broker1.secoolocal.com:9092,elk2broker2.secoolocal.com:9092,elk2broker3.secoolocal.com:9092
 
-META_SERVERS_OPTS="-Ddev_meta=$pro_meta  "
+META_SERVERS_OPTS="-Dpro_meta=$pro_meta  "
 
 # =============== Please do not modify the following content =============== #
 # go to script directory

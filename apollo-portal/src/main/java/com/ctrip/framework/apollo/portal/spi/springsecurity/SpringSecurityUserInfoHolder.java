@@ -10,22 +10,32 @@ import java.security.Principal;
 
 public class SpringSecurityUserInfoHolder implements UserInfoHolder {
 
-  @Override
-  public UserInfo getUser() {
-    UserInfo userInfo = new UserInfo();
-    userInfo.setUserId(getCurrentUsername());
-    return userInfo;
-  }
+    private volatile boolean defaultUser = false;
 
-  private String getCurrentUsername() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    if (principal instanceof UserDetails) {
-      return ((UserDetails) principal).getUsername();
+    @Override
+    public UserInfo getUser() {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(defaultUser ? "secoo" : getCurrentUsername());
+        return userInfo;
     }
-    if (principal instanceof Principal) {
-      return ((Principal) principal).getName();
-    }
-    return String.valueOf(principal);
-  }
 
+    private String getCurrentUsername() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }
+        if (principal instanceof Principal) {
+            return ((Principal) principal).getName();
+        }
+        return String.valueOf(principal);
+    }
+
+
+    public boolean isDefaultUser() {
+        return defaultUser;
+    }
+
+    public void setDefaultUser(boolean defaultUser) {
+        this.defaultUser = defaultUser;
+    }
 }

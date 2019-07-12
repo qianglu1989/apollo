@@ -12,10 +12,12 @@ public class SpringSecurityUserInfoHolder implements UserInfoHolder {
 
     private volatile boolean defaultUser = false;
 
+
+    private String defaultUserId = "luqiang";
     @Override
     public UserInfo getUser() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserId(defaultUser ? "secoo" : getCurrentUsername());
+        userInfo.setUserId(defaultUser ? defaultUserId : getCurrentUsername());
         return userInfo;
     }
 
@@ -36,6 +38,15 @@ public class SpringSecurityUserInfoHolder implements UserInfoHolder {
     }
 
     public void setDefaultUser(boolean defaultUser) {
+
         this.defaultUser = defaultUser;
+    }
+
+    public String getDefaultUserId() {
+        return defaultUserId;
+    }
+
+    public void setDefaultUserId(String defaultUserId) {
+        this.defaultUserId = defaultUserId;
     }
 }

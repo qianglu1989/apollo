@@ -17,6 +17,7 @@ import com.ctrip.framework.apollo.portal.spi.UserInfoHolder;
 import com.ctrip.framework.apollo.portal.spi.springsecurity.SpringSecurityUserInfoHolder;
 import com.ctrip.framework.apollo.portal.util.RoleUtils;
 import com.google.common.collect.Sets;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -31,6 +32,9 @@ import java.util.Set;
 @RestController("openapiAppController")
 @RequestMapping("/openapi/v1")
 public class AppController {
+
+    @Value("${apollo.defalue.user:luqiang}")
+    private String defaultUserId;
 
     private final PortalSettings portalSettings;
     private final ClusterService clusterService;
@@ -88,6 +92,7 @@ public class AppController {
 
         if(userInfoHolder instanceof SpringSecurityUserInfoHolder){
             ((SpringSecurityUserInfoHolder) userInfoHolder).setDefaultUser(true);
+            ((SpringSecurityUserInfoHolder) userInfoHolder).setDefaultUserId(defaultUserId);
         }
 
         App app = transformToApp(appModel);

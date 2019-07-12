@@ -1,14 +1,14 @@
 package com.ctrip.framework.apollo.common.entity;
 
 import com.ctrip.framework.apollo.common.utils.InputValidator;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "App")
@@ -90,6 +90,7 @@ public class App extends BaseEntity {
     this.ownerName = ownerName;
   }
 
+  @Override
   public String toString() {
     return toStringHelper().add("name", name).add("appId", appId)
         .add("orgId", orgId)

@@ -17,10 +17,10 @@ import com.ctrip.framework.apollo.portal.spi.UserInfoHolder;
 import com.ctrip.framework.apollo.portal.spi.springsecurity.SpringSecurityUserInfoHolder;
 import com.ctrip.framework.apollo.portal.util.RoleUtils;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,7 +33,7 @@ import java.util.Set;
 @RequestMapping("/openapi/v1")
 public class AppController {
 
-    @Value("${apollo.defalue.user:luqiang}")
+    @Value("${apollo.defalue.user}")
     private String defaultUserId;
 
     private final PortalSettings portalSettings;
@@ -42,6 +42,7 @@ public class AppController {
     private final ApplicationEventPublisher publisher;
     private final RolePermissionService rolePermissionService;
     private final UserInfoHolder userInfoHolder;
+
     public AppController(final PortalSettings portalSettings,
                          final ClusterService clusterService,
                          final RolePermissionService rolePermissionService,
@@ -90,7 +91,8 @@ public class AppController {
     @PostMapping("/create")
     public App create(@Valid @RequestBody AppModel appModel) {
 
-        if(userInfoHolder instanceof SpringSecurityUserInfoHolder){
+
+        if (StringUtils.isNotEmpty(defaultUserId) && userInfoHolder instanceof SpringSecurityUserInfoHolder) {
             ((SpringSecurityUserInfoHolder) userInfoHolder).setDefaultUser(true);
             ((SpringSecurityUserInfoHolder) userInfoHolder).setDefaultUserId(defaultUserId);
         }

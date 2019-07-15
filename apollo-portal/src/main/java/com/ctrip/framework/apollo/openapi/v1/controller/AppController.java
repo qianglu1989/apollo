@@ -91,10 +91,11 @@ public class AppController {
     @PostMapping("/create")
     public App create(@Valid @RequestBody AppModel appModel) {
 
+        boolean defalueId = false;
 
         if (StringUtils.isNotEmpty(defaultUserId) && userInfoHolder instanceof SpringSecurityUserInfoHolder) {
-            ((SpringSecurityUserInfoHolder) userInfoHolder).setDefaultUser(true);
-            ((SpringSecurityUserInfoHolder) userInfoHolder).setDefaultUserId(defaultUserId);
+            ((SpringSecurityUserInfoHolder) userInfoHolder).updateDefaultUser(defaultUserId);
+            defalueId = true;
         }
 
         if (defaultAdmin != null) {
@@ -116,6 +117,9 @@ public class AppController {
                             admins, userInfoHolder.getUser().getUserId());
         }
 
+        if (defalueId) {
+            ((SpringSecurityUserInfoHolder) userInfoHolder).remove();
+        }
         return createdApp;
     }
 

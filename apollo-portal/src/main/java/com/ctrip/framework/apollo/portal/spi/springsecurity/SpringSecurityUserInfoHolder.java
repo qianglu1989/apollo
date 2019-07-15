@@ -3,6 +3,7 @@ package com.ctrip.framework.apollo.portal.spi.springsecurity;
 import com.ctrip.framework.apollo.portal.entity.bo.UserInfo;
 import com.ctrip.framework.apollo.portal.spi.UserInfoHolder;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,14 +11,13 @@ import java.security.Principal;
 
 public class SpringSecurityUserInfoHolder implements UserInfoHolder {
 
-    private volatile boolean defaultUser = false;
+    private volatile ThreadLocal<String> defaultUser = new ThreadLocal<>();
 
 
-    private String defaultUserId = "luqiang";
     @Override
     public UserInfo getUser() {
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserId(defaultUser ? defaultUserId : getCurrentUsername());
+        userInfo.setUserId(StringUtils.isNotEmpty(defaultUser.get()) ? defaultUser.get() : getCurrentUsername());
         return userInfo;
     }
 
@@ -33,20 +33,12 @@ public class SpringSecurityUserInfoHolder implements UserInfoHolder {
     }
 
 
-    public boolean isDefaultUser() {
-        return defaultUser;
+    public void remove() {
+        defaultUser.remove();
     }
 
-    public void setDefaultUser(boolean defaultUser) {
 
-        this.defaultUser = defaultUser;
-    }
-
-    public String getDefaultUserId() {
-        return defaultUserId;
-    }
-
-    public void setDefaultUserId(String defaultUserId) {
-        this.defaultUserId = defaultUserId;
+    public void updateDefaultUser(String userId){
+        defaultUser.set(userId);
     }
 }

@@ -17,8 +17,8 @@ test_meta=http://10.0.253.207:8080
 #pro_meta=http://localhost:8080
 
 spring_kafka_bootstrap=10.0.253.123:9092
-apollo_defalue_user=luqiang
-apollo_defalue_admin=luqiang,liqiuwei,apollo
+apollo_defalue_user=apollo
+apollo_defalue_admin=luqiang,liqiuwei
 META_SERVERS_OPTS="-Ddev_meta=$dev_meta -Dtest_meta=$test_meta "
 
 # =============== Please do not modify the following content =============== #

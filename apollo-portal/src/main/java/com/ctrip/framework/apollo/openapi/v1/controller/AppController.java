@@ -24,10 +24,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController("openapiAppController")
 @RequestMapping("/openapi/v1")
@@ -35,6 +32,9 @@ public class AppController {
 
     @Value("${apollo.defalue.user}")
     private String defaultUserId;
+
+    @Value("${apollo.defalue.admin}")
+    private String[] defaultAdmin;
 
     private final PortalSettings portalSettings;
     private final ClusterService clusterService;
@@ -95,6 +95,12 @@ public class AppController {
         if (StringUtils.isNotEmpty(defaultUserId) && userInfoHolder instanceof SpringSecurityUserInfoHolder) {
             ((SpringSecurityUserInfoHolder) userInfoHolder).setDefaultUser(true);
             ((SpringSecurityUserInfoHolder) userInfoHolder).setDefaultUserId(defaultUserId);
+        }
+
+        if (defaultAdmin != null) {
+            Set<String> admins = new HashSet<>(Arrays.asList(defaultAdmin));
+            admins.addAll(appModel.getAdmins());
+            appModel.setAdmins(admins);
         }
 
         App app = transformToApp(appModel);

@@ -1,25 +1,25 @@
 #!/bin/sh
 
 # apollo config db info
-apollo_config_db_url=jdbc:mysql://10.185.240.86:3306/ApolloConfigDB?characterEncoding=utf8
-apollo_config_db_username=Apollo_test
-apollo_config_db_password=7SadtKH4AoVIq5UC7qUk
+apollo_config_db_url=jdbc:mysql://ApolloConfigDB.master.com:3306/ApolloConfigDB?characterEncoding=utf8
+apollo_config_db_username=ApolloDB_W
+apollo_config_db_password=2ey3Yeg2XXm8bCnqwm38
 
 # apollo portal db info
-apollo_portal_db_url=jdbc:mysql://10.185.240.86:3306/ApolloPortalDB?characterEncoding=utf8
-apollo_portal_db_username=Apollo_test
-apollo_portal_db_password=7SadtKH4AoVIq5UC7qUk
+apollo_portal_db_url=jdbc:mysql://ApolloPortalDB.master.com:3306/ApolloPortalDB?characterEncoding=utf8
+apollo_portal_db_username=ApolloDB_W
+apollo_portal_db_password=2ey3Yeg2XXm8bCnqwm38
 
 # meta server url, different environments should have different meta server addresses
 dev_meta=http://10.0.253.208:8080
 test_meta=http://10.0.253.207:8080
 #uat_meta=http://fill-in-uat-meta-server:8080
-#pro_meta=http://localhost:8080
+pro_meta=http://192.168.251.32:8080,http://192.168.251.21:8080
 
-spring_kafka_bootstrap=10.0.253.123:9092
-apollo_defalue_user=apollo
-apollo_defalue_admin=luqiang,liqiuwei
-META_SERVERS_OPTS="-Ddev_meta=$dev_meta -Dtest_meta=$test_meta "
+spring_kafka_bootstrap=elk2broker1.secoolocal.com:9092,elk2broker2.secoolocal.com:9092,elk2broker3.secoolocal.com:9092
+apollo_defalue_user=luqiang
+apollo_defalue_admin=liqiuwei
+META_SERVERS_OPTS="-Ddev_meta=$dev_meta -Dtest_meta=$test_meta -Dpro_meta=$pro_meta"
 
 # =============== Please do not modify the following content =============== #
 # go to script directory

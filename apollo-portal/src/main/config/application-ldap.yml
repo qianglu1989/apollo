@@ -6,7 +6,7 @@ spring:
     password: "secoo.com"
     searchFilter: "(uid={0})"  # 用户过滤器，登录的时候用这个过滤器来搜索用户
     urls:
-      - "ldap://10.0.9.78:389"
+      - "ldap://192.168.50.100:389"
 
 ldap:
   mapping: # 配置 ldap 属性

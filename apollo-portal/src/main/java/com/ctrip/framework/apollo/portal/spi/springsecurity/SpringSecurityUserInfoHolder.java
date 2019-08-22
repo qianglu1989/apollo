@@ -11,7 +11,7 @@ import java.security.Principal;
 
 public class SpringSecurityUserInfoHolder implements UserInfoHolder {
 
-    private volatile ThreadLocal<String> defaultUser = new ThreadLocal<>();
+    private ThreadLocal<String> defaultUser = new ThreadLocal<>();
 
 
     @Override
@@ -38,7 +38,7 @@ public class SpringSecurityUserInfoHolder implements UserInfoHolder {
     }
 
 
-    public void updateDefaultUser(String userId){
+    public void updateDefaultUser(String userId) {
         defaultUser.set(userId);
     }
 }

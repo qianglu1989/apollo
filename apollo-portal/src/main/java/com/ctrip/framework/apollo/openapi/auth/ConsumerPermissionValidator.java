@@ -43,6 +43,10 @@ public class ConsumerPermissionValidator {
 
   public boolean hasReleaseNamespacePermission(HttpServletRequest request, String appId, String namespaceName,
       String env) {
+    if(hashPermission(request)){
+      return true;
+    }
+
     if (hasCreateNamespacePermission(request, appId)) {
       return true;
     }
